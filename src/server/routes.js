@@ -7,10 +7,10 @@ const routes = [
     handler: postPredictHandler,
     options: {
       payload: {
-        maxBytes: 1000000, // Limit to 1 MB
+        maxBytes: 1000000, // Limit 1 MB
         allow: 'multipart/form-data', // Allow file uploads
         multipart: true, // Enable multipart parsing
-        output: 'file', // Provide uploaded files as temporary files
+        output: 'stream', // Provide uploaded files as streams
         parse: true, // Automatically parse the payload
       },
     },
@@ -19,7 +19,7 @@ const routes = [
     path: '/predict/histories',
     method: 'GET',
     handler: getPredictHistoriesHandler,
-  }
+  },
 ];
 
 module.exports = routes;

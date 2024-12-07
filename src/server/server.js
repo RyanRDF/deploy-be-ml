@@ -47,4 +47,5 @@ const ClientError = require('../exceptions/ClientError');
 
   await server.start();
   console.log(`Server start at: ${server.info.uri}`);
+  console.log(InputError);
 })();

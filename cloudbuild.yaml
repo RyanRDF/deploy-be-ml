@@ -5,7 +5,7 @@ steps:
       [
         "build",
         "-t",
-        "asia-southeast1-docker.pkg.dev/submissionmlgc-tbfarhan/mlgc-tbfarhan/submission-asclepius-api",
+        "asia-southeast2-docker.pkg.dev/submissionmlgc-ryanrafael/mlgc-ryanrafael/asclepius",
         ".",
       ]
 
@@ -14,7 +14,7 @@ steps:
     args:
       [
         "push",
-        "asia-southeast1-docker.pkg.dev/submissionmlgc-tbfarhan/mlgc-tbfarhan/submission-asclepius-api",
+        "asia-southeast2-docker.pkg.dev/submissionmlgc-ryanrafael/mlgc-ryanrafael/asclepius",
       ]
 
   # Step 3: Deploy the image to Cloud Run
@@ -23,15 +23,15 @@ steps:
       - "gcloud"
       - "run"
       - "deploy"
-      - "submission-asclepius-api"
+      - "asclepius"
       - "--image"
-      - "asia-southeast1-docker.pkg.dev/submissionmlgc-tbfarhan/mlgc-tbfarhan/submission-asclepius-api"
+      - "asia-southeast2-docker.pkg.dev/submissionmlgc-ryanrafael/mlgc-ryanrafael/asclepius",
       - "--platform"
       - "managed"
       - "--region"
-      - "asia-southeast1"
+      - "asia-southeast2"
       - "--allow-unauthenticated"
 options:
   logging: CLOUD_LOGGING_ONLY
 images:
-  - "asia-southeast1-docker.pkg.dev/submissionmlgc-tbfarhan/mlgc-tbfarhan/submission-asclepius-api"
+  - "asia-southeast2-docker.pkg.dev/submissionmlgc-ryanrafael/mlgc-ryanrafael/asclepius",

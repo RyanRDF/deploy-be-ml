@@ -49,12 +49,12 @@
 //     console.log(`Server start at: ${server.info.uri}`);
 // })();
 
-require('dotenv').config();
+rrequire('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
 const routes = require('./routes');
 const loadModel = require('../services/loadModel');
-const InputError = require('../exceptions/ClientError');
+const ClientError = require('../exceptions/ClientError'); // Pastikan ini nama kelas yang benar
 
 (async () => {
   const server = Hapi.server({
@@ -75,7 +75,7 @@ const InputError = require('../exceptions/ClientError');
   server.ext('onPreResponse', (request, h) => {
     const response = request.response;
 
-    if (response instanceof InputError) {
+    if (response instanceof ClientError) {
       return h
         .response({
           status: 'fail',
@@ -83,7 +83,7 @@ const InputError = require('../exceptions/ClientError');
         })
         .code(response.statusCode);
     }
-
+    
     if (response.isBoom) {
       return h
         .response({
@@ -97,5 +97,5 @@ const InputError = require('../exceptions/ClientError');
   });
 
   await server.start();
-  console.log(`Server start at: ${server.info.uri}`);
+  console.log(`Server started at: ${server.info.uri}`);
 })();

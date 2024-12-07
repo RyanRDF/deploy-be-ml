@@ -19,21 +19,29 @@ async function predictClassification(model, image) {
   // const classResult = tf.argMax(prediction, 1).dataSync()[0];
   // const label = classes[classResult];
  
-  const label = confidenceScore >= 50 ? 'Cancer' : 'Non-cancer';
-
-  let suggestion;
+  let result = { confidenceScore, label: "Cancer", suggestion: "Segera periksa ke dokter!" };
+  if (confidenceScore < 1) {
+      result.label        = "Non-cancer";
+      result.suggestion   = "Penyakit kanker tidak terdeteksi."
+  }
   
-  if (label === 'Cancer') {
-    suggestion = "Segera periksa ke dokter!"
-  }
- 
-  if (label === 'Non-cancer') {
-    suggestion = "Penyakit kanker tidak terdeteksi."
-  }
-  return { confidenceScore, label, suggestion };
+  return result;
   } catch (error) {
-    throw new InputError('Terjadi kesalahan dalam melakukan prediksi');
-  }
+throw new InputError("Terjadi kesalahan dalam melakukan prediksi");
 }
+}
+  
+//   if (label === 'Cancer') {
+//     suggestion = "Segera periksa ke dokter!"
+//   }
+ 
+//   if (label === 'Non-cancer') {
+//     suggestion = "Penyakit kanker tidak terdeteksi."
+//   }
+//   return { confidenceScore, label, suggestion };
+//   } catch (error) {
+//     throw new InputError('Terjadi kesalahan dalam melakukan prediksi');
+//   }
+// }
 
 module.exports = predictClassification;

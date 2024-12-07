@@ -25,7 +25,7 @@ steps:
       - "deploy"
       - "asclepius"
       - "--image"
-      - "asia-southeast2-docker.pkg.dev/submissionmlgc-ryanrafael/mlgc-ryanrafael/asclepius",
+      - "asia-southeast2-docker.pkg.dev/submissionmlgc-ryanrafael/mlgc-ryanrafael/asclepius"
       - "--platform"
       - "managed"
       - "--region"

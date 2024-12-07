@@ -52,6 +52,7 @@ async function postPredictHandler(request, h) {
 	  }).code(500);
 	}
   }
+  
 
 const getPredictHistoriesHandler = async (request, h) => {
   const allData = await getData();

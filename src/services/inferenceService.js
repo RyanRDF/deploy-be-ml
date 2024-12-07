@@ -1,3 +1,4 @@
+
 const tf = require('@tensorflow/tfjs-node');
 const InputError = require('../exceptions/ClientError');
 
@@ -5,23 +6,11 @@ const InputError = require('../exceptions/ClientError');
 async function predictClassification(model, image) {
 	try {
 	  console.log('Start prediction process');
-  
-	  let tensor = tf.node
+	  const tensor = tf.node
 		.decodeJpeg(image)
 		.resizeNearestNeighbor([224, 224])
 		.expandDims()
 		.toFloat();
-  
-	  // Periksa apakah gambar grayscale dan ubah ke RGB
-	  if (tensor.shape[3] === 1) {
-		tensor = tensor.tile([1, 1, 1, 3]); // Konversi grayscale ke RGB
-		console.log('Converted grayscale image to RGB');
-	  } else if (tensor.shape[3] !== 3) {
-		throw new ClientError(
-		  'Format gambar tidak valid. Harus berupa RGB atau grayscale.',
-		  400
-		);
-	  }
   
 	  console.log('Image processed into tensor');
   
@@ -42,14 +31,7 @@ async function predictClassification(model, image) {
 	  return { confidenceScore, label, suggestion };
 	} catch (error) {
 	  console.error('Error in prediction process:', error.message);
-  
-	  // Tangkap kesalahan ClientError
-	  if (error instanceof ClientError) {
-		throw error; // Pastikan status 400 tetap dipertahankan
-	  }
-  
-	  // Jika kesalahan lain muncul, lempar error generik
-	  throw new Error('Terjadi kesalahan dalam melakukan prediksi');
+	  throw new InputError('Terjadi kesalahan dalam melakukan prediksi');
 	}
   }
 

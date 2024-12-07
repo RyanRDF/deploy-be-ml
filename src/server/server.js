@@ -23,31 +23,28 @@ const ClientError = require('../exceptions/ClientError');
 
   server.ext('onPreResponse', (request, h) => {
     const response = request.response;
-  
-    // Tangani ClientError
+
     if (response instanceof ClientError) {
+      return h
+        .response({
+          status: 'fail',
+          message: `${response.message}`,
+        })
+        .code(response.statusCode);
+    }
+
+    if (response.isBoom) {
       return h
         .response({
           status: 'fail',
           message: response.message,
         })
-        .code(response.statusCode);
-    }
-  
-    // Tangani error Boom (kesalahan framework)
-    if (response.isBoom) {
-      return h
-        .response({
-          status: 'fail',
-          message: response.output.payload.message,
-        })
         .code(response.output.statusCode);
     }
-  
-    // Lanjutkan jika tidak ada error
+
     return h.continue;
   });
 
   await server.start();
   console.log(`Server start at: ${server.info.uri}`);
-})();
+})(); 

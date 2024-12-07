@@ -37,4 +37,4 @@ const getPredictHistoriesHandler = async (request, h) => {
   }).code(200);
 }
  
-module.exports = postPredictHandler, getPredictHistoriesHandler;
+module.exports = {postPredictHandler, getPredictHistoriesHandler};

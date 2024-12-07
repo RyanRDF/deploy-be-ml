@@ -38,10 +38,10 @@ async function postPredictHandler(request, h) {
 	  console.error('Error in postPredictHandler:', error.message);
   
 	  if (error instanceof ClientError) {
-		// Jika kesalahan berasal dari ClientError, gunakan status 400
+		// Jika kesalahan berasal dari ClientError, gunakan status 400 dan ubah pesan respons
 		return h.response({
 		  status: 'fail',
-		  message: error.message,
+		  message: 'Terjadi kesalahan dalam melakukan prediksi',
 		}).code(error.statusCode);
 	  }
   
@@ -52,6 +52,7 @@ async function postPredictHandler(request, h) {
 	  }).code(500);
 	}
   }
+  
   
 
 const getPredictHistoriesHandler = async (request, h) => {

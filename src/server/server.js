@@ -8,17 +8,17 @@ const InputError = require("../exceptions/InputError");
 
 (async () => {
 	const server = Hapi.server({
-		port: process.env.APP_PORT || 8080,
-		host: process.env.APP_HOST || "localhost",
-		routes: {
-			cors: {
-				origin: ["*"],
-			},
-			payload: {
-				maxBytes: 1 * 1024 * 1024,
-			},
-		},
-	});
+    port: process.env.PORT || 8080, // Use PORT instead of APP_PORT for Cloud Run compatibility
+    host: "0.0.0.0", // Use 0.0.0.0 to allow external access
+    routes: {
+        cors: {
+            origin: ["*"], // Allow all origins
+        },
+        payload: {
+            maxBytes: 1 * 1024 * 1024, // Set payload size to 1 MB
+        },
+    },
+});
 
 	const model = await loadModel();
 	server.app.model = model;

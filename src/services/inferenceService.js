@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 // const tf = require('@tensorflow/tfjs-node');
 // const InputError = require('../exceptions/ClientError');
+=======
+const tf = require('@tensorflow/tfjs-node');
+const InputError = require('../exceptions/InputError');
+>>>>>>> parent of 48e599c (apalah)
 
  
 // async function predictClassification(model, image) {
